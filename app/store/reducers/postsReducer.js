@@ -3,7 +3,7 @@ const INITIAL_STATE = {
   items: {}
 }
 
-const postReducer = (state = INITIAL_STATE, action) => {
+const postsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case 'FETCH_POSTS_PENDING':
       return Object.assign({}, state, {
@@ -12,7 +12,7 @@ const postReducer = (state = INITIAL_STATE, action) => {
     
     case 'FETCH_POSTS_FULFILLED':
       return Object.assign({}, state, {
-        items: action.payload.data.data,
+        items: action.payload.data.posts,
         loading: false
       })
     
@@ -26,4 +26,4 @@ const postReducer = (state = INITIAL_STATE, action) => {
   }
 };
 
-export default postReducer
+export default postsReducer

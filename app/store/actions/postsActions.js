@@ -1,15 +1,17 @@
-import request from "../request"
+import api from "../request"
 
 export function fetchPosts(payload) {
   return {
     type: 'FETCH_POSTS',
-    payload: request.get('http://api.burton.local:8080/posts')
+    payload: api('http://api.burton.local:8080/posts', {
+      method: 'get'
+    })
   }
 }
 
 export function fetchPost(id) {
   return {
     type: 'FETCH_POST',
-    payload: request.get(`/posts/${id}`)
+    payload: api(`/posts/${id}`, { method: 'get' })
   }
 }
