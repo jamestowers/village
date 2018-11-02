@@ -3,15 +3,13 @@ import api from "../request"
 export function fetchPosts(payload) {
   return {
     type: 'FETCH_POSTS',
-    payload: api('http://api.burton.local:8080/posts', {
-      method: 'get'
-    })
+    payload: api.get('/posts')
   }
 }
 
 export function fetchPost(id) {
   return {
     type: 'FETCH_POST',
-    payload: api(`/posts/${id}`, { method: 'get' })
+    payload: api.get(`/posts/${id}`)
   }
 }
