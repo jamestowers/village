@@ -1,15 +1,13 @@
 import api from "../request"
 
-export function fetchPosts(payload) {
-  return {
-    type: 'FETCH_POSTS',
-    payload: api.get('/posts')
-  }
-}
+import { FETCH_POSTS, FETCH_POST } from '../actionTypes'
 
-export function fetchPost(id) {
-  return {
-    type: 'FETCH_POST',
-    payload: api.get(`/posts/${id}`)
-  }
-}
+export const fetchPosts = payload => ({
+  type: FETCH_POSTS,
+  payload: api.get('/posts')
+})
+
+export const fetchPost = id => ({
+  type: FETCH_POST,
+  payload: api.get(`/posts/${id}`)
+})
