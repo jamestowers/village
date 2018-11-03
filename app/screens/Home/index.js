@@ -5,7 +5,8 @@ import { fetchPosts } from '../../store/actions/postsActions'
 import Home from './Home'
 
 const mapStateToProps = state => ({
-  feed: state.posts.items
+  posts: state.posts.items,
+  authors: state.users.items
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -26,7 +26,8 @@ const Tile = ({ post, onPress }) => (
     <TileThumbnail width={80} source={{ uri: post.attributes.image }} />
     <TileBody>
       <H2>{post.attributes.title}</H2>
-      <SmallText>{post.attributes.publishedAtFormatted}</SmallText>
+      <BodyText>{post.author}</BodyText>
+      <SmallText>{post.attributes.publishedAt}</SmallText>
     </TileBody>
   </TileWrapper>
 )
