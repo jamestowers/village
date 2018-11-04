@@ -48,21 +48,17 @@ class HomeScreen extends React.PureComponent {
       <Wrapper>
         <Scroll>
           <H1>Feed</H1>
-          <Tiles>
-            {Object.values(posts).map(post => {
-              const mergedPost = Object.assign({}, post, {
-                author: authors[post.relationships.author.data.id].attributes.firstName
-              })
-              console.log(mergedPost)
-              return (<Tile
+          {posts && <Tiles>
+            {posts.map(post =>
+              <Tile
                 key={post.id}
-                post={mergedPost}
+                post={post}
                 author
                 onPress={() => this.onTilePress(post.id)}
               />
             )}
-            )}
           </Tiles>
+          }
         </Scroll>
       </Wrapper>
     )
