@@ -7,7 +7,7 @@ import Home from './Home'
 
 const mapStateToProps = state => {
   const posts = postsSelector(state)
-  console.log(posts)
+  // console.log(posts)
   return {
     feed: posts
   }

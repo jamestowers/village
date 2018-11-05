@@ -1,21 +1,16 @@
 import orm from '../orm'
+
+import hydrate from '../hydrater'
 import { FETCH_POSTS, FETCH_POST } from '../actionTypes'
 
 const ormReducer = (dbState, action) => {
   const sess = orm.session(dbState)
-
-  // Session-specific Models are available
-  // as properties on the Session instance.
   const { Post, User } = sess
 
   switch (action.type) {
     case `${FETCH_POSTS}_FULFILLED`:
-      Object.values(action.payload.data.posts).map(post => 
-        Post.upsert(post)
-      )
-      Object.values(action.payload.data.users).map(user =>
-        User.upsert(user)
-      )
+      const { data } = action.payload
+      hydrate(sess, action.payload.data)
       break
     case 'CREATE_POST':
       Post.create(action.payload)
