@@ -14,7 +14,7 @@ function wrap(json) {
 
 const hydrate = (sess, json) => {
 
-  wrap(json.data).map(elem => { 
+  wrap(json.data).map(elem => {
     console.log(elem)
     const type = camelCase(elem.type)
     const modelName = upperFirst(type)

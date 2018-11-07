@@ -1,7 +1,7 @@
 import { connect } from 'react-redux'
 
-import { postsSelector } from '../../store/selectors'
-import { fetchPosts } from '../../store/actions/postsActions'
+import { postsSelector } from '../../../store/selectors'
+import { fetchPosts } from '../../../store/actions/postsActions'
 
 import Home from './Home'
 

@@ -6,8 +6,8 @@ import styled, { ThemeProvider } from 'styled-components'
 import { AppLoading, Asset, Font, Icon } from 'expo'
 import AppNavigator from './navigation/AppNavigator'
 
-import store from './store'
-import theme from './theme'
+import store from '../shared/store'
+import theme from '../shared/theme'
 
 const Wrapper = styled.View`
   flex: 1;
