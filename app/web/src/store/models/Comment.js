@@ -1,4 +1,4 @@
-import { Model, attr, fk } from 'redux-orm'
+import { Model, fk, attr } from 'redux-orm'
 
 class Comment extends Model {
   toString() {
@@ -9,13 +9,35 @@ class Comment extends Model {
     return {
       id: attr(),
       body: attr(),
-      // post: oneToOne('Post'),
-      author: fk('User', 'comments')
+      author: fk('User')
     }
   }
 
   toJSON() {
-    return { ...this.ref };
+    const { id, authorId, ...attributes } = this.ref
+    return {
+      data: {
+        id,
+        type: 'comments',
+        attributes: {
+          ...attributes
+        }
+      },
+      relationships: {
+        author: {
+          data: {
+            type: 'users',
+            id: authorId
+          }
+        },
+        post: {
+          data: {
+            type: 'posts',
+            id: this.postId
+          }
+        }
+      }
+    }
   }
 }
 

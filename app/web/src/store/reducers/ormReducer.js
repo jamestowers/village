@@ -1,17 +1,29 @@
 import orm from '../orm'
+import api from "../request"
 
-import { hydrateIncluded } from '../hydrater'
-import { FETCH_POSTS } from '../actionTypes'
+import handleJsonAPIResponse from '../hydrater'
+import { FETCH_POSTS, ADD_COMMENT } from '../actionTypes'
 
 const ormReducer = (dbState, action) => {
-  const sess = orm.session(dbState)
-  const { Post } = sess
+  const session = orm.session(dbState)
+  const { Post, Comment } = session
 
   switch (action.type) {
     case `${FETCH_POSTS}_FULFILLED`:
-      const { data } = action.payload
-      hydrateIncluded(sess, data.included)
-      Post.hydrate(data.data)
+      handleJsonAPIResponse(session, action.payload.data)
+      break
+
+    case ADD_COMMENT:
+      const comment = Comment.create({
+        body: action.payload.body,
+        authorId: action.payload.authorId,
+      })
+      console.log(comment.toJSON())
+      Post.withId(action.payload.postId).comments.add(comment)
+      /* dispatch({
+        type: PERSIST_COMMENT,
+        payload: api.post(`/posts/${action.payload.postId}/comments`, comment)
+      }) */
       break
 
     case 'CREATE_POST':
@@ -38,14 +50,14 @@ const ormReducer = (dbState, action) => {
       Post.withId(action.payload.bookId).publisher = action.payload.publisherId
       break
     default:
-      return sess.state
+      return session.state
 
   }
 
   // the state property of Session always points to the current database.
   // Updates don't mutate the original state, so this reference is not
   // equal to `dbState` that was an argument to this reducer.
-  return sess.state
+  return session.state
 }
 
 export default ormReducer

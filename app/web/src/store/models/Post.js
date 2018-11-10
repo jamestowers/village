@@ -1,7 +1,6 @@
 import { Model, attr, fk, many } from 'redux-orm'
-import isArray from 'lodash/isArray'
 
-import { addRelation } from '../hydrater'
+// import { hydrateRelations } from '../hydrater'
 
 const defaultAttributes = {
   title: 'New Post',
@@ -25,44 +24,23 @@ class Post extends Model {
       body: attr(),
       image: attr(),
       publishedAt: attr(),
-      author: fk('User', 'posts'),
-      comments: many('Comment', 'posts')
+      author: fk('User'),
+      comments: many('Comment')
     }
   }
 
-  static hydrate(entities) {
+  /* static hydrate(entities) {
     entities.map(entity => {
       const fields = entity.attributes
-      const newPost = this.upsert(fields)
+      const postModel = this.upsert(fields)
 
       if (entity.relationships) {
-        Object.keys(entity.relationships).map(key => {
-          if (!(key in this.fields)) {
-            return console.warn('[Post.js] Relation not found');
-          }
-          const relation = entity.relationships[key]
-          const relationType = this.fields[key].constructor.name
-
-          if (typeof relation.data !== 'undefined') {
-            if (isArray(relation.data)) {
-              relation.data.map(data => {
-                addRelation(newPost, key, relationType, data)
-                /* switch (relationType) {
-                  case 'ManyToMany':
-                    return newPost[key].add(rel.data)
-                  default:
-                    return newPost[key] = rel.data
-                } */
-              })
-            } else {
-              addRelation(newPost, key, relationType, relation.data)
-            }
-          }
-        })
+        hydrateRelations(postModel, entity.relationships)
       }
-      return newPost
+
+      return postModel
     })
-  }
+  } */
 
   static generate(newAttributes = {}) {
     const combinedAttributes = {

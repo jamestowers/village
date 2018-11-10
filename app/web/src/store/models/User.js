@@ -1,4 +1,4 @@
-import { Model, attr } from 'redux-orm'
+import { Model, attr, many } from 'redux-orm'
 
 class User extends Model {
   toString() {
@@ -10,8 +10,13 @@ class User extends Model {
       id: attr(),
       firstName: attr(),
       lastName: attr(),
-      // posts: many('Post', 'author')
+      posts: many('Post'),
+      comments: many('Comment'),
     }
+  }
+
+  static get fullName() {
+    return `${this.firstName} ${this.lastName}`
   }
 
   toJSON() {

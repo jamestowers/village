@@ -1,4 +1,4 @@
-import { FETCH_POSTS, FETCH_POST } from '../actionTypes'
+import { FETCH_POSTS } from '../actionTypes'
 
 const INITIAL_STATE = {
   loading: false,
@@ -11,18 +11,18 @@ const postsReducer = (state = INITIAL_STATE, action) => {
       return Object.assign({}, state, {
         loading: true
       })
-    
+
     case `${FETCH_POSTS}_FULFILLED`:
       return Object.assign({}, state, {
         items: action.payload.data.posts,
         loading: false
       })
-    
+
     case `${FETCH_POSTS}_REJECTED`:
       return Object.assign({}, state, {
         loading: false
       })
-    
+
     default:
       return state
   }
