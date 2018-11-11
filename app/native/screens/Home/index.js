@@ -1,13 +1,17 @@
 import { connect } from 'react-redux'
 
-import { postsWithAuthor } from '../../store/selectors'
-import { fetchPosts } from '../../store/actions/postsActions'
+import { postsSelector } from '../../../store/selectors'
+import { fetchPosts } from '../../../store/actions/postsActions'
 
 import Home from './Home'
 
-const mapStateToProps = state => ({
-  posts: postsWithAuthor(state)
-})
+const mapStateToProps = state => {
+  const posts = postsSelector(state)
+  // console.log(posts)
+  return {
+    feed: posts
+  }
+}
 
 const mapDispatchToProps = dispatch => ({
   getPosts: () => dispatch(fetchPosts())

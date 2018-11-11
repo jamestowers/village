@@ -24,6 +24,10 @@ $router->get('/posts/{id}', [
     'as' => 'posts.show', 
     'uses' => 'PostController@show'
 ]);
+$router->post('/posts/{id}/comments', [
+    'as' => 'comments.create', 
+    'uses' => 'CommentController@create'
+]);
 
 $router->get('/users', [
     'as' => 'users.index', 
