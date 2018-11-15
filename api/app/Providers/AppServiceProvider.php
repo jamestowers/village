@@ -12,8 +12,9 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        //
+    {   
+        // @see: https://laravel-json-api.readthedocs.io/en/latest/basics/api/
+        // JsonApi::defaultApi('v1');
     }
 
     /**
