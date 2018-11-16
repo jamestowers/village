@@ -33,10 +33,15 @@ export const postsSelector = createSelector(
     return session.Post.all().toModelArray().map(post => {
       const obj = post.ref
 
-      return Object.assign({}, obj, {
-        author: post.author.ref,
-        commentCount: post.comments.count()
-      })
+      const relations = {}
+      if (post.author) {
+        relations['author'] = post.author.ref
+      }
+      if (post.comments) {
+        relations['commentCount'] = post.comments.count()
+      }
+
+      return Object.assign({}, obj, relations)
     })
   }
 )

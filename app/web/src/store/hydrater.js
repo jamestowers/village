@@ -59,17 +59,6 @@ export const hydrateRelations = (modelInstance, relations) => {
   })
 }
 
-/* export const hydrateIncluded = (session, included) => {
-  makeArray(included).map(relation => {
-    const type = camelCase(relation.type)
-    const relatedModelName = getModelFromJsonType(type)
-
-    const model = session[relatedModelName].upsert(relation)
-
-    return model
-  })
-} */
-
 const createEntities = (session, json) => {
   makeArray(json).map(entity => {
     const type = camelCase(entity.type)
@@ -91,6 +80,7 @@ const createEntities = (session, json) => {
 
 const handleJsonAPIResponse = (session, json) => {
   if (json.included) {
+    console.log('[hydrater.js] Saving included resources')
     createEntities(session, json.included)
   }
   createEntities(session, json.data)
