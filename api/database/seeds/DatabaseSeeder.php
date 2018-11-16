@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
             'password' => app('hash')->make('Buster123'),
         ]);
 
-        factory(App\User::class, 10)->create();
-        /* ->each(function ($u) {
-            $u->posts()->save(factory(App\Post::class)->make());
-        }); */
-        factory(App\Post::class, 10)->create();
+        factory(App\User::class, 10)->create()->each(function ($user) {
+            $user->posts()->saveMany(factory(App\Post::class, 3)->make());
+        });
+        // factory(App\Post::class, 10)->create();
         factory(App\Location::class, 10)->create();
         factory(App\Event::class, 5)->create();
+        factory(App\Comment::class, 5)->create();
     }
 }

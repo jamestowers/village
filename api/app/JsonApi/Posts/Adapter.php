@@ -18,6 +18,13 @@ class Adapter extends AbstractAdapter
     protected $attributes = [];
 
     /**
+     * Resource relationship fields that can be filled.
+     *
+     * @var array
+     */
+    protected $relationships = [];
+
+    /**
      * Adapter constructor.
      *
      * @param StandardStrategy $paging
@@ -35,6 +42,16 @@ class Adapter extends AbstractAdapter
     protected function filter($query, Collection $filters)
     {
         // TODO
+    }
+    
+    protected function author()
+    {
+        return $this->belongsTo('user', 'authorId');
+    }
+
+    protected function comments()
+    {
+        return $this->hasMany('comments', 'postId');
     }
 
 }

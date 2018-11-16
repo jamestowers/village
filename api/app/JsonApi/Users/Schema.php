@@ -13,25 +13,56 @@ class Schema extends SchemaProvider
     protected $resourceType = 'users';
 
     /**
-     * @param $resource
+     * @param $user
      *      the domain record being serialized.
      * @return string
      */
-    public function getId($resource)
+    public function getId($user)
     {
-        return (string) $resource->getRouteKey();
+        return (string) $user->getRouteKey();
     }
 
     /**
-     * @param $resource
+     * @param $user
      *      the domain record being serialized.
      * @return array
      */
-    public function getAttributes($resource)
+    public function getAttributes($user)
     {
         return [
-            'created-at' => $resource->created_at->toAtomString(),
-            'updated-at' => $resource->updated_at->toAtomString(),
+            'firstName' => $user->firstName,
+            'lastName'  => $user->lastName,
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRelationships($post, $isPrimary, array $includeRelationships)
+    {
+        /** @var Post $post */
+        return [
+            'posts' => [
+                self::META => function () use ($post) {
+                    return [
+                        'total' => $post->posts_count,
+                    ];
+                },
+                self::SHOW_SELF => true,
+                self::SHOW_RELATED => true,
+            ],
+            // TODO: Not incude comments here, see note at end of `Data` section here:
+            // https://laravel-json-api.readthedocs.io/en/latest/basics/schemas/#relationships
+            'comments' => [
+                self::META => function () use ($post) {
+                    return [
+                        'total' => $post->comments_count,
+                    ];
+                },
+                self::SHOW_SELF => true,
+                self::SHOW_RELATED => true,
+            ],
+            
         ];
     }
 }

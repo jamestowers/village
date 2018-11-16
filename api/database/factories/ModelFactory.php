@@ -23,11 +23,19 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
         'title' => $faker->sentence(3, true),
-        'excerpt' => $faker->paragraphs(1, true),
+        'excerpt' => $faker->sentence(20, true),
         'body' => $faker->paragraphs(10, true),
         'image' => 'https://source.unsplash.com/collection/190727/1600x900',
         'authorId' => 1,
         'publishedAt' => $faker->dateTimeThisYear()
+    ];
+});
+
+$factory->define(App\Comment::class, function (Faker\Generator $faker) {
+    return [
+        'body' => $faker->sentence(10, true),
+        'authorId' => 1,
+        'postId' => 1
     ];
 });
 

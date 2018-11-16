@@ -13,25 +13,51 @@ class Schema extends SchemaProvider
     protected $resourceType = 'comments';
 
     /**
-     * @param $resource
+     * @param $comment
      *      the domain record being serialized.
      * @return string
      */
-    public function getId($resource)
+    public function getId($comment)
     {
-        return (string) $resource->getRouteKey();
+        return (string) $comment->getRouteKey();
     }
 
     /**
-     * @param $resource
+     * @param $comment
      *      the domain record being serialized.
      * @return array
      */
-    public function getAttributes($resource)
+    public function getAttributes($comment)
     {
         return [
-            'created-at' => $resource->created_at->toAtomString(),
-            'updated-at' => $resource->updated_at->toAtomString(),
+            'body' => $comment->body,
+            'createdAt' => $comment->created_at->toAtomString(),
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getRelationships($comment, $isPrimary, array $includeRelationships)
+    {
+        /** @var Comment $comment */
+        return [
+            'author' => [
+                // self::SHOW_DATA => isset($includeRelationships['author']),
+                self::DATA => function () use ($comment) {
+                    return $comment->author;
+                },
+                self::SHOW_SELF => true,
+                self::SHOW_RELATED => true,
+            ],
+            'post' => [
+                // self::SHOW_DATA => isset($includeRelationships['post']),
+                self::DATA => function () use ($comment) {
+                    return $comment->post;
+                },
+                self::SHOW_SELF => true,
+                self::SHOW_RELATED => true,
+            ],
         ];
     }
 }
