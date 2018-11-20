@@ -1,4 +1,6 @@
-import { Model, attr, many, oneToOne } from 'redux-orm'
+import { Model, attr, fk, many } from 'redux-orm'
+
+// import { hydrateRelations } from '../hydrater'
 
 const defaultAttributes = {
   title: 'New Post',
@@ -22,14 +24,23 @@ class Post extends Model {
       body: attr(),
       image: attr(),
       publishedAt: attr(),
-      author: oneToOne('User', 'posts')
+      author: fk('User'),
+      comments: many('Comment')
     }
   }
 
-  static parse(postData) {
+  /* static hydrate(entities) {
+    entities.map(entity => {
+      const fields = entity.attributes
+      const postModel = this.upsert(fields)
 
-    return this.upsert(postData);
-  }
+      if (entity.relationships) {
+        hydrateRelations(postModel, entity.relationships)
+      }
+
+      return postModel
+    })
+  } */
 
   static generate(newAttributes = {}) {
     const combinedAttributes = {

@@ -1,29 +1,86 @@
 import camelCase from 'lodash/camelCase'
-import upperFirst from 'lodash/upperFirst'
 import isArray from 'lodash/isArray'
 
-import orm from './orm'
-
-function wrap(json) {
+function makeArray(json) {
   if (isArray(json)) {
     return json
   }
-
   return [json]
 }
 
-const hydrate = (sess, json) => {
+const jsonTypeToModelMap = {
+  users: 'User',
+  comments: 'Comment',
+  posts: 'Post',
+  events: 'Event'
+}
 
-  wrap(json.data).map(elem => {
-    console.log(elem)
-    const type = camelCase(elem.type)
-    const modelName = upperFirst(type)
+const getModelFromJsonType = (jsonType) => {
+  if (jsonType in jsonTypeToModelMap) {
+    return jsonTypeToModelMap[jsonType]
+  } else {
+    throw new Error(`[getModelFromJsonType()] Received json type "${jsonType}" with unmatched model`)
+  }
+}
 
-    const entity = sess[modelName]
+export const addRelation = (modelInstance, relationName, relationType, relationData) => {
+  // console.log(relationType, relationName, relationData.id)
+  switch (relationType) {
+    case 'ManyToMany':
+      return modelInstance[relationName].add(relationData.id)
+    default:
+      return modelInstance[relationName] = relationData.id
+  }
+}
 
-    console.log(modelName)
+export const hydrateRelations = (modelInstance, relations) => {
+  const modelClass = modelInstance.constructor
+  Object.keys(relations).map(relationName => {
+    if (!(relationName in modelClass.fields)) {
+      return console.warn(`[Post.js] ${relationName} not found in ${modelClass.modelName} fields list`);
+    }
+
+    const relation = relations[relationName]
+    const relationType = modelClass.fields[relationName].constructor.name
+
+    if (typeof relation.data !== 'undefined') {
+      if (isArray(relation.data)) {
+        relation.data.map(data => {
+          return addRelation(modelInstance, relationName, relationType, data)
+        })
+      } else {
+        return addRelation(modelInstance, relationName, relationType, relation.data)
+      }
+    }
+    return relation
   })
 }
 
+const createEntities = (session, json) => {
+  makeArray(json).map(entity => {
+    const type = camelCase(entity.type)
+    const relatedModelName = getModelFromJsonType(type)
+    const obj = {
+      id: entity.id,
+      type,
+      ...entity.attributes
+    }
+    const modelInstance = session[relatedModelName].upsert(obj)
 
-export default hydrate
+    if (entity.relationships) {
+      hydrateRelations(modelInstance, entity.relationships)
+    }
+
+    return modelInstance
+  })
+}
+
+const handleJsonAPIResponse = (session, json) => {
+  if (json.included) {
+    console.log('[hydrater.js] Saving included resources')
+    createEntities(session, json.included)
+  }
+  createEntities(session, json.data)
+}
+
+export default handleJsonAPIResponse

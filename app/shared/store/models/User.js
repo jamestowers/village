@@ -10,8 +10,13 @@ class User extends Model {
       id: attr(),
       firstName: attr(),
       lastName: attr(),
-      // posts: many('Post', 'author')
+      posts: many('Post'),
+      comments: many('Comment'),
     }
+  }
+
+  static get fullName() {
+    return `${this.firstName} ${this.lastName}`
   }
 
   toJSON() {

@@ -1,11 +1,13 @@
 import { createStore, applyMiddleware } from 'redux'
 import promiseMiddleware from 'redux-promise-middleware'
+import thunk from 'redux-thunk'
 import { composeWithDevTools } from 'redux-devtools-extension'
 
 import rootReducer from './reducers'
 
 // The order of these middleware is important!
 const middleware = [
+  thunk,
   promiseMiddleware()
 ]
 

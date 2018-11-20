@@ -4,7 +4,7 @@ import orm from './orm'
 
 const dbStateSelector = state => state.orm
 
-export const userSelector = createSelector(
+export const usersSelector = createSelector(
   orm,
   // The first input selector should always select the db-state.
   // Behind the scenes, `createSelector` begins a Redux-ORM session
@@ -17,10 +17,10 @@ export const userSelector = createSelector(
       // Returns a reference to the raw object in the store,
       // so it doesn't include any reverse or m2m fields.
       const obj = user.ref
-      // Object.keys(obj) === ['id', 'name']
 
       return Object.assign({}, obj, {
-        posts: user.posts.toRefArray().map(post => post.title),
+        postCount: user.posts.count(),
+        commentCount: user.comments.count()
       })
     })
   }
@@ -33,9 +33,15 @@ export const postsSelector = createSelector(
     return session.Post.all().toModelArray().map(post => {
       const obj = post.ref
 
-      return Object.assign({}, obj, {
-        author: post.user.toRefArray().map(post => post.firstName),
-      })
+      const relations = {}
+      if (post.author) {
+        relations['author'] = post.author.ref
+      }
+      if (post.comments) {
+        relations['commentCount'] = post.comments.count()
+      }
+
+      return Object.assign({}, obj, relations)
     })
   }
 )
