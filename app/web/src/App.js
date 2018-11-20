@@ -26,22 +26,14 @@ class App extends Component {
   onButtonClick = () => {
     this.props.addComment({
       body: this.state.commentText,
-      postId: 1,
-      authorId: 1
+      postId: 4,
+      authorId: 3
     })
   }
 
   render() {
     return (
       <div className="App">
-        {this.props.users.map(user => (
-          <div key={user.id}>
-            <h2>{user.firstName}</h2>
-            <small>{user.postCount} posts</small><br />
-            <small>{user.commentCount} comments</small>
-          </div>
-        ))}
-        <hr />
         {this.props.posts.map(post => (
           <div key={post.id}>
             <h2>{post.title}</h2>
@@ -62,6 +54,17 @@ class App extends Component {
             </div>
           </div>
         ))}
+
+        <hr />
+
+        {this.props.users.map(user => (
+          <div key={user.id}>
+            <h2>{user.firstName}</h2>
+            <small>{user.postCount} posts</small><br />
+            <small>{user.commentCount} comments</small>
+          </div>
+        ))}
+
       </div>
     );
   }

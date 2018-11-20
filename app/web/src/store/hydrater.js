@@ -1,8 +1,5 @@
 import camelCase from 'lodash/camelCase'
-// import upperFirst from 'lodash/upperFirst'
 import isArray from 'lodash/isArray'
-
-// import orm from './orm'
 
 function makeArray(json) {
   if (isArray(json)) {

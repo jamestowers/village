@@ -1,5 +1,4 @@
 import orm from '../orm'
-import api from "../request"
 
 import handleJsonAPIResponse from '../hydrater'
 import { FETCH_POSTS, ADD_COMMENT } from '../actionTypes'
@@ -18,12 +17,7 @@ const ormReducer = (dbState, action) => {
         body: action.payload.body,
         authorId: action.payload.authorId,
       })
-      console.log(comment.toJSON())
       Post.withId(action.payload.postId).comments.add(comment)
-      /* dispatch({
-        type: PERSIST_COMMENT,
-        payload: api.post(`/posts/${action.payload.postId}/comments`, comment)
-      }) */
       break
 
     case 'CREATE_POST':

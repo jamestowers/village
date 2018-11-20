@@ -6,6 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'body',
+        'postId',
+        'authorId'
+    ];
+
     /**
      * Get comment's author.
      * 
@@ -23,6 +35,6 @@ class Comment extends Model
      */
     public function post()
     {
-        return $this->belongsTo('App\Post', 'authorId');
+        return $this->belongsTo('App\Post', 'postId');
     }
 }
