@@ -32,7 +32,8 @@ class Schema extends SchemaProvider
         return [
             'title' => $post->title,
             'body'  => $post->body,
-            'publishedAt' => $post->published_at ? $post->published_at->toAtomString() : null,
+            'image'  => $post->image,
+            'publishedAt' => $post->publishedAt ? $post->publishedAt->toAtomString() : null,
             'createdAt' => $post->created_at->toAtomString(),
             'updatedAt' => $post->updated_at->toAtomString(),
         ];

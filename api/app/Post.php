@@ -22,6 +22,15 @@ class Post extends Model
     ];
 
     /**
+     * The attributes that should be mutated to dates.
+     *
+     * @var array
+     */
+    protected $dates = [
+        'publishedAt'
+    ];
+
+    /**
      * Get post's author.
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
