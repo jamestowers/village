@@ -17,11 +17,12 @@ const GlobalStyle = createGlobalStyle`
 class App extends Component {
 
   render() {
+    const { auth } = this.props
     return (
       <Router history={history}>
         <React.Fragment>
           <GlobalStyle />
-          <Routes />
+          <Routes auth={auth} />
         </React.Fragment>
       </Router>
     )

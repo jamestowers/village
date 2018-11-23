@@ -4,8 +4,12 @@ const routes = [
   {
     path: '/',
     component: Components.Home,
-    auth: false,
-    prefetch: true
+    auth: false
+  },
+  {
+    path: '/post/:id',
+    component: Components.Post,
+    auth: false
   },
 ]
 

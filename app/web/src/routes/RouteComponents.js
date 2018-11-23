@@ -2,6 +2,7 @@
 import { lazy } from 'react'
 
 export const Home = lazy(() => import('../screens/Home'));
+export const Post = lazy(() => import('../screens/Post'));
 
 /**
  * MISC

@@ -53,14 +53,6 @@ class AppRouter extends React.PureComponent<Props> {
     const output = []
     appRoutes.map((route) => {
       /**
-       * Prefetch the route components if needed
-       */
-      if (route.prefetch != null) {
-        // $FlowFixMe
-        route.component.load()
-      }
-
-      /**
        * If route requires Auth then show the PrivateRoute which
        * redirects to login page when user is not logged in
       */
@@ -70,7 +62,7 @@ class AppRouter extends React.PureComponent<Props> {
           exact
           path={`${base}${route.path}`}
           component={route.component}
-          isAuthenticated={this.props.auth.token != null}
+          isAuthenticated={true} //this.props.auth.token != null
         />)
         : (<Route
           key={route.path}

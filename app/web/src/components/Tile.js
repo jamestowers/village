@@ -1,11 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Link } from 'react-router-dom'
 
 import { H2 } from './Text/Headings'
 import TileThumbnail from './TileThumbnail'
 import BodyText, { SmallText } from './Text'
 
-const TileWrapper = styled.div`
+const TileWrapper = styled(Link)`
   background: ${props => props.theme.palette.background};
   border-radius: ${props => props.theme.spacing.space3};
   display: flex;
@@ -14,6 +15,7 @@ const TileWrapper = styled.div`
   flex-grow: 1;
   flex-basis: 100%;
   margin-bottom: ${props => props.theme.spacing.space3};
+  text-decoration: none;
 `
 
 const TileBody = styled.div`
@@ -21,8 +23,8 @@ const TileBody = styled.div`
   padding: ${props => props.theme.spacing.space4};
 `
 
-const Tile = ({ post, onPress }) => (
-  <TileWrapper onClick={onPress}>
+const Tile = ({ post }) => (
+  <TileWrapper to={`posts/${post.id}`}>
     <TileThumbnail width={160} source={post.image} />
     <TileBody>
       <H2>{post.title}</H2>
