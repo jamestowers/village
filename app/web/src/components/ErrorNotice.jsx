@@ -6,7 +6,6 @@ const Notification = styled.div`
   text-align: center;
   padding: ${props => props.theme.spacing.space3};
   color: ${props => props.theme.colors.shade4};
-  font: ${props => props.theme.type.styles.xsmall};
   flex: 1;
 `
 

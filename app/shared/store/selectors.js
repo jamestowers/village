@@ -4,6 +4,8 @@ import orm from './orm'
 
 const dbStateSelector = state => state.orm
 
+const selectItemId = (state, itemId) => itemId
+
 export const usersSelector = createSelector(
   orm,
   // The first input selector should always select the db-state.
@@ -45,3 +47,27 @@ export const postsSelector = createSelector(
     })
   }
 )
+
+/* export const postSelector = (postId) => createSelector(
+  orm,
+  dbStateSelector,
+  postId,
+  session => {
+    const post = session.Post.withId(postId)
+    const obj = post.ref
+    const relations = {}
+    if (post.author) {
+      relations['author'] = post.author.ref
+    }
+    if (post.comments) {
+      relations['commentCount'] = post.comments.count()
+    }
+
+    return Object.assign({}, obj, relations)
+  }
+) */
+
+export const postSelector = createSelector(
+  [postsSelector, selectItemId],
+  (posts, postId) => posts[postId]
+); 

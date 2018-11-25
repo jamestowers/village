@@ -7,10 +7,10 @@ const routes = [
     auth: false
   },
   {
-    path: '/post/:id',
+    path: '/posts/:id',
     component: Components.Post,
     auth: false
-  },
+  }
 ]
 
 export default routes

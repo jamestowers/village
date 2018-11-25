@@ -1,7 +1,7 @@
 import orm from '../orm'
 
 import handleJsonAPIResponse from '../hydrater'
-import { FETCH_POSTS, ADD_COMMENT } from '../actionTypes'
+import { FETCH_POSTS, FETCH_POST, ADD_COMMENT } from '../actionTypes'
 
 const ormReducer = (dbState, action) => {
   const session = orm.session(dbState)
@@ -9,6 +9,7 @@ const ormReducer = (dbState, action) => {
 
   switch (action.type) {
     case `${FETCH_POSTS}_FULFILLED`:
+    case `${FETCH_POST}_FULFILLED`:
       handleJsonAPIResponse(session, action.payload.data)
       break
 

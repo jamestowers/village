@@ -14,27 +14,16 @@ const Wrapper = styled.div`
   padding: 0 ${props => props.theme.spacing.space3};
 `
 
-const Tiles = styled.div`
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  max-width: 600px;
-`
-
 const initialState = {
   commentText: ''
 }
 
-class HomeScreen extends React.PureComponent {
+class PostScreen extends React.PureComponent {
 
   state = initialState
 
   componentDidMount() {
-    this.props.getPosts()
-  }
-
-  onTilePress = (id) => {
-    console.log(id)
+    this.props.getPost()
   }
 
   onCommentEnter = (e) => {
@@ -42,33 +31,28 @@ class HomeScreen extends React.PureComponent {
     this.setState({ commentText: text })
   }
 
-  onButtonClick = () => {
+  /* onButtonClick = () => {
     this.props.addComment({
       body: this.state.commentText,
-      postId: 4,
+      postId: this.props.id,
       authorId: 3
     })
-  }
+  } */
 
   render() {
-    const { posts } = this.props
+    const { post } = this.props
     return (
       <Wrapper>
-        <H1>Feed</H1>
-        {posts && <Tiles>
-          {posts.map(post =>
-            <Tile
-              key={post.id}
-              post={post}
-              author
-              onPress={() => this.onTilePress(post.id)}
-            />
-          )}
-        </Tiles>
-        }
+        <H1>{post.title}</H1>
+        <Tile
+          key={post.id}
+          post={post}
+          author
+          onPress={() => this.onTilePress(post.id)}
+        />
       </Wrapper>
     )
   }
 }
 
-export default HomeScreen
+export default PostScreen
