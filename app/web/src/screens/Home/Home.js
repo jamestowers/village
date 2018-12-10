@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from 'styled-components'
 
+import Layout from '../../layouts/Default'
 import Tile from '../../components/Tile'
 import { H1 } from '../../components/Text/Headings'
 
 const Wrapper = styled.div`
-  background: #EFF1F3;
   align-items: center;
   display: flex;
   flex-direction: column;
@@ -53,20 +53,22 @@ class HomeScreen extends React.PureComponent {
   render() {
     const { posts } = this.props
     return (
-      <Wrapper>
-        <H1>Feed</H1>
-        {posts && <Tiles>
-          {posts.map(post =>
-            <Tile
-              key={post.id}
-              post={post}
-              author
-              onPress={() => this.onTilePress(post.id)}
-            />
-          )}
-        </Tiles>
-        }
-      </Wrapper>
+      <Layout>
+        <Wrapper>
+          {posts && <Tiles>
+            <H1>Feed</H1>
+            {posts.map(post =>
+              <Tile
+                key={post.id}
+                post={post}
+                author
+                onPress={() => this.onTilePress(post.id)}
+              />
+            )}
+          </Tiles>
+          }
+        </Wrapper>
+      </Layout>
     )
   }
 }

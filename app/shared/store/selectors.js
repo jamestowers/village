@@ -1,4 +1,5 @@
-import { createSelector } from 'redux-orm'
+import { createSelector } from 'reselect'
+import { createSelector as createOrmSelector } from 'redux-orm'
 
 import orm from './orm'
 
@@ -6,10 +7,10 @@ const dbStateSelector = state => state.orm
 
 const selectItemId = (state, itemId) => itemId
 
-export const usersSelector = createSelector(
+export const usersSelector = createOrmSelector(
   orm,
   // The first input selector should always select the db-state.
-  // Behind the scenes, `createSelector` begins a Redux-ORM session
+  // Behind the scenes, `createOrmSelector` begins a Redux-ORM session
   // with the value returned by `dbStateSelector` and passes
   // that Session instance as an argument instead.
   dbStateSelector,
@@ -28,13 +29,12 @@ export const usersSelector = createSelector(
   }
 )
 
-export const postsSelector = createSelector(
+export const postsSelector = createOrmSelector(
   orm,
   dbStateSelector,
   session => {
     return session.Post.all().toModelArray().map(post => {
       const obj = post.ref
-
       const relations = {}
       if (post.author) {
         relations['author'] = post.author.ref
@@ -42,32 +42,16 @@ export const postsSelector = createSelector(
       if (post.comments) {
         relations['commentCount'] = post.comments.count()
       }
-
       return Object.assign({}, obj, relations)
     })
   }
 )
 
-/* export const postSelector = (postId) => createSelector(
-  orm,
-  dbStateSelector,
-  postId,
-  session => {
-    const post = session.Post.withId(postId)
-    const obj = post.ref
-    const relations = {}
-    if (post.author) {
-      relations['author'] = post.author.ref
-    }
-    if (post.comments) {
-      relations['commentCount'] = post.comments.count()
-    }
-
-    return Object.assign({}, obj, relations)
-  }
-) */
-
+// TODO: Use selector factory as per bottom of: https://blog.isquaredsoftware.com/2017/12/idiomatic-redux-using-reselect-selectors/
+// Current selector is not memoized properly
 export const postSelector = createSelector(
   [postsSelector, selectItemId],
-  (posts, postId) => posts[postId]
-); 
+  (posts, postId) => {
+    return posts.find(post => post.id === postId)
+  }
+)

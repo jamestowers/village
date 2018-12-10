@@ -11,17 +11,18 @@ const headingStyles = ({ theme }) => {
 
 export const H1 = styled.h1`
   ${headingStyles}
-  font-size: 36px;
+  font-size: 5.2rem;
+  letter-spacing: 0.1rem;
   margin-bottom: ${props => props.theme.spacing.space4};
   margin-top: ${props => props.theme.spacing.space6};
 `
 
 export const H2 = styled.h1`
   ${headingStyles}
-  font-size: 18px;
+  font-size: 1.8rem;
 `
 
 export const H3 = styled.h1`
   ${headingStyles}
-  font-size: 12px;
+  font-size: 1.2rem;
 `

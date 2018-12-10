@@ -8,12 +8,12 @@ import Post from './Post'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    post: postSelector(state, ownProps.id),
+    post: postSelector(state, ownProps.match.params.id),
   }
 }
 
-const mapDispatchToProps = dispatch => ({
-  getPost: () => dispatch(fetchPost()),
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getPost: () => dispatch(fetchPost(ownProps.match.params.id)),
   addComment: (payload) => dispatch(addComment(payload))
 })
 

@@ -4,3 +4,4 @@ app/node_modules/*
 app/web/node_modules/*
 
 app/native/.expo/*
+*.log

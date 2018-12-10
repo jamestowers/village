@@ -33,7 +33,10 @@ class Schema extends SchemaProvider
             'title' => $post->title,
             'body'  => $post->body,
             'image'  => $post->image,
-            'publishedAt' => $post->publishedAt ? $post->publishedAt->toAtomString() : null,
+            'publishedAt' => [
+                'atom' => $post->publishedAt ? $post->publishedAt->toAtomString() : null,
+                'timeAgo' => $post->publishedAt ? $post->publishedAt->diffForHumans() : null
+            ],
             'createdAt' => $post->created_at->toAtomString(),
             'updatedAt' => $post->updated_at->toAtomString(),
         ];
@@ -59,7 +62,7 @@ class Schema extends SchemaProvider
             'comments' => [
                 self::META => function () use ($post) {
                     return [
-                        'total' => $post->comments_count,
+                        'total' => $post->comments_count
                     ];
                 },
                 self::SHOW_SELF => true,

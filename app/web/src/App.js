@@ -7,6 +7,7 @@ import history from './routes/history'
 
 const GlobalStyle = createGlobalStyle`
   html {
+    background: ${props => props.theme.palette.backgroundAlt};
     font-size: 62%;
   }
   body {

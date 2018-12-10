@@ -51,7 +51,8 @@ class Adapter extends AbstractAdapter
 
     protected function comments()
     {
-        return $this->hasMany('comments', 'postId');
+        // return $this->hasMany('comments', 'postId');
+        return $this->hasMany();
     }
 
 }

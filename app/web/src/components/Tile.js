@@ -29,7 +29,7 @@ const Tile = ({ post }) => (
     <TileBody>
       <H2>{post.title}</H2>
       <BodyText>by {post.author.firstName}</BodyText>
-      <SmallText>{post.publishedAt}</SmallText>
+      <SmallText>{post.publishedAt.timeAgo}</SmallText>
     </TileBody>
   </TileWrapper>
 )

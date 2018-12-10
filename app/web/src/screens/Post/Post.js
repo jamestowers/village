@@ -1,16 +1,14 @@
 import React from 'react';
 import styled from 'styled-components'
 
-import Tile from '../../components/Tile'
+import Hero from '../../components/Hero'
 import { H1 } from '../../components/Text/Headings'
+import BodyText, { SmallText } from '../../components/Text'
+import Comments from '../../components/Comments'
 
 const Wrapper = styled.div`
-  background: #EFF1F3;
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  flex: 1;
+  max-width: 800px;
+  margin: 0 auto;
   padding: 0 ${props => props.theme.spacing.space3};
 `
 
@@ -31,26 +29,38 @@ class PostScreen extends React.PureComponent {
     this.setState({ commentText: text })
   }
 
-  /* onButtonClick = () => {
+  onButtonClick = () => {
     this.props.addComment({
       body: this.state.commentText,
-      postId: this.props.id,
+      postId: this.props.post.id,
       authorId: 3
     })
-  } */
+  }
 
   render() {
     const { post } = this.props
+
+    if (!post) {
+      return null
+    }
+
     return (
-      <Wrapper>
-        <H1>{post.title}</H1>
-        <Tile
-          key={post.id}
-          post={post}
-          author
-          onPress={() => this.onTilePress(post.id)}
-        />
-      </Wrapper>
+      <React.Fragment>
+        <Hero image={post.image} />
+        <Wrapper>
+          <H1>{post.title}</H1>
+          <SmallText>{post.publishedAt.timeAgo} | by {post.author.firstName}</SmallText>
+          <BodyText>{post.body}</BodyText>
+          <Comments comments={post.comments} />
+          <textarea
+            placeholder="Add a comment"
+            onChange={this.onCommentEnter}
+          ></textarea>
+          <button
+            onClick={this.onButtonClick}
+          >Comment</button>
+        </Wrapper>
+      </React.Fragment>
     )
   }
 }
