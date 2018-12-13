@@ -15,6 +15,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'firstName' => $faker->firstName,
         'lastName' => $faker->lastName,
+        'image' => 'https://source.unsplash.com/collection/2013520/900x900?q=' . rand(1,20),
         'email' => $faker->email,
         'password' => app('hash')->make($faker->password),
     ];
@@ -25,7 +26,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'title' => $faker->sentence(3, true),
         'excerpt' => $faker->sentence(20, true),
         'body' => $faker->paragraphs(10, true),
-        'image' => 'https://source.unsplash.com/collection/190727/1600x900',
+        'image' => 'https://source.unsplash.com/collection/190727/1600x900?q=' . rand(1,20),
         'authorId' => 1,
         'publishedAt' => $faker->dateTimeThisYear()
     ];

@@ -32,6 +32,7 @@ class Schema extends SchemaProvider
         return [
             'firstName' => $user->firstName,
             'lastName'  => $user->lastName,
+            'image'  => $user->image,
         ];
     }
 

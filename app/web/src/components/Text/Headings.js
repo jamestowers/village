@@ -17,12 +17,12 @@ export const H1 = styled.h1`
   margin-top: ${props => props.theme.spacing.space6};
 `
 
-export const H2 = styled.h1`
+export const H2 = styled.h2`
   ${headingStyles}
   font-size: 1.8rem;
 `
 
-export const H3 = styled.h1`
+export const H3 = styled.h3`
   ${headingStyles}
   font-size: 1.2rem;
 `

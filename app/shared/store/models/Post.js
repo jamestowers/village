@@ -1,4 +1,4 @@
-import { Model, attr, fk, many } from 'redux-orm'
+import { Model, attr, fk } from 'redux-orm'
 
 // import { hydrateRelations } from '../hydrater'
 
@@ -24,8 +24,8 @@ class Post extends Model {
       body: attr(),
       image: attr(),
       publishedAt: attr(),
-      author: fk('User'),
-      comments: many('Comment')
+      author: fk('User', 'posts'),
+      // comments: many('Comment')
     }
   }
 

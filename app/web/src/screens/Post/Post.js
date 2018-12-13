@@ -5,6 +5,7 @@ import Hero from '../../components/Hero'
 import { H1 } from '../../components/Text/Headings'
 import BodyText, { SmallText } from '../../components/Text'
 import Comments from '../../components/Comments'
+import CommentForm from '../../components/Comments/CommentForm'
 
 const Wrapper = styled.div`
   max-width: 800px;
@@ -12,9 +13,7 @@ const Wrapper = styled.div`
   padding: 0 ${props => props.theme.spacing.space3};
 `
 
-const initialState = {
-  commentText: ''
-}
+const initialState = {}
 
 class PostScreen extends React.PureComponent {
 
@@ -22,19 +21,6 @@ class PostScreen extends React.PureComponent {
 
   componentDidMount() {
     this.props.getPost()
-  }
-
-  onCommentEnter = (e) => {
-    const text = e.target.value
-    this.setState({ commentText: text })
-  }
-
-  onButtonClick = () => {
-    this.props.addComment({
-      body: this.state.commentText,
-      postId: this.props.post.id,
-      authorId: 3
-    })
   }
 
   render() {
@@ -51,14 +37,9 @@ class PostScreen extends React.PureComponent {
           <H1>{post.title}</H1>
           <SmallText>{post.publishedAt.timeAgo} | by {post.author.firstName}</SmallText>
           <BodyText>{post.body}</BodyText>
-          <Comments comments={post.comments} />
-          <textarea
-            placeholder="Add a comment"
-            onChange={this.onCommentEnter}
-          ></textarea>
-          <button
-            onClick={this.onButtonClick}
-          >Comment</button>
+          <CommentForm postId={post.id} />
+          <Comments postId={post.id} />
+
         </Wrapper>
       </React.Fragment>
     )

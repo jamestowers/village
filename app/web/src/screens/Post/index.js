@@ -1,7 +1,6 @@
 import { connect } from 'react-redux'
 
 import { fetchPost } from '../../../../shared/store/actions/postsActions'
-import { addComment } from '../../../../shared/store/actions/commentsActions'
 import { postSelector } from '../../../../shared/store/selectors'
 
 import Post from './Post'
@@ -13,8 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-  getPost: () => dispatch(fetchPost(ownProps.match.params.id)),
-  addComment: (payload) => dispatch(addComment(payload))
+  getPost: () => dispatch(fetchPost(ownProps.match.params.id))
 })
 
 const ConnectedPost = connect(mapStateToProps, mapDispatchToProps)(Post)

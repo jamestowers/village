@@ -7,6 +7,9 @@ import store from '../../shared/store'
 import theme from '../../shared/theme'
 
 import App from './App'
+
+import './theme/reset.css'
+
 import * as serviceWorker from './serviceWorker'
 
 const render = Component => {

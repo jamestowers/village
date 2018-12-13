@@ -1,11 +1,13 @@
 import React, { PureComponent } from 'react'
 // import styled from 'styled-components'
 
+import Comment from './Comment'
+
 class Comments extends PureComponent {
   state = {}
 
   componentDidMount() {
-    // this.props.getComments()
+    this.props.getComments()
   }
 
   render() {
@@ -16,7 +18,10 @@ class Comments extends PureComponent {
 
     return (
       comments.map(comment => (
-        <p>{comment.body}</p>
+        <Comment
+          key={comment.id}
+          comment={comment}
+        />
       ))
     )
   }

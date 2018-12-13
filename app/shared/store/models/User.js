@@ -1,8 +1,8 @@
-import { Model, attr, many } from 'redux-orm'
+import { Model, attr } from 'redux-orm'
 
 class User extends Model {
-  toString() {
-    return `User: ${this.firstName} ${this.lastName}`
+  static get modelName() {
+    return 'User'
   }
 
   static get fields() {
@@ -10,8 +10,8 @@ class User extends Model {
       id: attr(),
       firstName: attr(),
       lastName: attr(),
-      posts: many('Post'),
-      comments: many('Comment'),
+      // posts: many('Post'),
+      // comments: many('Comment'),
     }
   }
 
@@ -19,11 +19,13 @@ class User extends Model {
     return `${this.firstName} ${this.lastName}`
   }
 
+  toString() {
+    return `User: ${this.firstName} ${this.lastName}`
+  }
+
   toJSON() {
     return { ...this.ref };
   }
 }
-
-User.modelName = 'User'
 
 export default User

@@ -55,3 +55,11 @@ export const postSelector = createSelector(
     return posts.find(post => post.id === postId)
   }
 )
+
+export const commentsSelector = createOrmSelector(
+  orm,
+  dbStateSelector,
+  session => {
+    return session.Comment.all().toModelArray()
+  }
+)

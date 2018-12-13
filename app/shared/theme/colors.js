@@ -19,6 +19,7 @@ const colors = {
 export const palette = {
   background: colors.white,
   backgroundAlt: colors.shade8,
+  formFieldBorder: colors.shade6,
   accent: colors.yellow,
   textHeading: colors.shade1,
   textBody: colors.shade3,
