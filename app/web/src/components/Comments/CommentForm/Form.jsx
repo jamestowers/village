@@ -1,8 +1,11 @@
 import React, { PureComponent } from 'react'
 import styled from 'styled-components'
 
+import Input from '../../../components/forms/Input'
+import Button from '../../../components/Button'
+
 const CommentFormWrapper = styled.div`
-  
+  margin-bottom: ${props => props.theme.spacing.space3};
 `
 
 const initialState = {
@@ -28,16 +31,18 @@ class CommentForm extends PureComponent {
   render() {
     return (
       <CommentFormWrapper>
-        <textarea
+        <Input
+          as="textarea"
           placeholder="Add a comment"
           onChange={this.onCommentEnter}
-        ></textarea>
-        <button
+        />
+        <Button
+          primary
           onClick={this.onButtonClick}
-        >Comment</button>
+        >Comment</Button>
       </CommentFormWrapper>
     )
   }
 }
 
-export default CommentForm;
+export default CommentForm

@@ -703,6 +703,12 @@
   dependencies:
     regenerator-runtime "^0.12.0"
 
+"@babel/runtime@^7.0.0":
+  version "7.2.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.2.0.tgz#b03e42eeddf5898e00646e4c840fa07ba8dcad7f"
+  dependencies:
+    regenerator-runtime "^0.12.0"
+
 "@babel/runtime@^7.1.2":
   version "7.1.5"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.1.5.tgz#4170907641cf1f61508f563ece3725150cc6fe39"
@@ -4481,6 +4487,10 @@ immer@1.7.2:
   version "1.7.2"
   resolved "https://registry.yarnpkg.com/immer/-/immer-1.7.2.tgz#a51e9723c50b27e132f6566facbec1c85fc69547"
 
+immer@^1.8.2:
+  version "1.8.2"
+  resolved "https://registry.yarnpkg.com/immer/-/immer-1.8.2.tgz#111e9c9e6832c833868f3f6481758a421f63f403"
+
 immutable-ops@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/immutable-ops/-/immutable-ops-0.5.2.tgz#3803d9bc65821bf4aaedf2f3542ec8714b73646a"
@@ -6549,6 +6559,12 @@ pnp-webpack-plugin@1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/pnp-webpack-plugin/-/pnp-webpack-plugin-1.1.0.tgz#947a96d1db94bb5a1fc014d83b581e428699ac8c"
 
+polished@^2.3.1:
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/polished/-/polished-2.3.1.tgz#557ea07e5bcb1b9c7d71935a01d0315831234d48"
+  dependencies:
+    "@babel/runtime" "^7.0.0"
+
 portfinder@^1.0.9:
   version "1.0.19"
   resolved "https://registry.yarnpkg.com/portfinder/-/portfinder-1.0.19.tgz#07e87914a55242dcda5b833d42f018d6875b595f"
@@ -7506,6 +7522,10 @@ redux-orm@^0.12.1:
 redux-promise-middleware@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/redux-promise-middleware/-/redux-promise-middleware-5.1.1.tgz#37689339a58a33d1fda675ed1ba2053a2d196b8d"
+
+redux-saga@^0.16.2:
+  version "0.16.2"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.16.2.tgz#993662e86bc945d8509ac2b8daba3a8c615cc971"
 
 redux-thunk@^2.3.0:
   version "2.3.0"

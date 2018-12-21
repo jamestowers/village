@@ -3,13 +3,17 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 
 import { H2 } from './Text/Headings'
+import WrapperStyle from './TileWrapper'
 import TileThumbnail from './TileThumbnail'
-import BodyText, { SmallText } from './Text'
+import Avatar from './Avatar'
+import { SmallText } from './Text'
 
-const TileWrapper = styled(Link)`
-  background: ${props => props.theme.palette.background};
-  border-radius: ${props => props.theme.spacing.space3};
+const Wrapper = styled(Link)`
   display: flex;
+  text-decoration: none;
+  width: 100%;
+`
+const InnerWrapper = styled(WrapperStyle)`
   flex-direction: row;
   flex-shrink: 0;
   flex-grow: 1;
@@ -24,14 +28,17 @@ const TileBody = styled.div`
 `
 
 const Tile = ({ post }) => (
-  <TileWrapper to={`posts/${post.id}`}>
-    <TileThumbnail width={160} source={post.image} />
-    <TileBody>
-      <H2>{post.title}</H2>
-      <BodyText>by {post.author.firstName}</BodyText>
-      <SmallText>{post.publishedAt.timeAgo}</SmallText>
-    </TileBody>
-  </TileWrapper>
+  <Wrapper to={`posts/${post.id}`}>
+    <InnerWrapper>
+      <TileThumbnail width={160} source={post.image} />
+      <TileBody>
+        <H2>{post.title}</H2>
+        <Avatar src={post.author.image} size={30} />
+        <SmallText>by {post.author.firstName} {post.author.lastName}</SmallText>
+        <SmallText>{post.publishedAt.timeAgo}</SmallText>
+      </TileBody>
+    </InnerWrapper>
+  </Wrapper>
 )
 
 export default Tile;

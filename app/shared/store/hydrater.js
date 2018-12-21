@@ -24,7 +24,7 @@ const getModelFromJsonType = (jsonType) => {
 }
 
 export const addRelation = (modelInstance, relatedModelName, relationName, relationType, relationData) => {
-  console.log(modelInstance.type, modelInstance, relationType, relationName, relationData.id)
+  // console.log(modelInstance.type, modelInstance, relationType, relationName, relationData.id)
   switch (relationType) {
     case 'ManyToMany':
       // console.log(relatedModelName.toLowerCase())
@@ -47,7 +47,7 @@ export const hydrateRelations = (modelInstance, relations) => {
 
     if (typeof relation.data !== 'undefined') {
       const relatedModelName = getModelFromJsonType(relation.data.type)
-      console.log(relatedModelName, relationName)
+      // console.log(relatedModelName, relationName)
       if (isArray(relation.data)) {
         relation.data.map(data => {
           return addRelation(modelInstance, relatedModelName, relationName, relationType, data)

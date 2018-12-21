@@ -1,33 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
 
+import TileWrapper from '../TileWrapper'
 import Avatar from '../Avatar'
-import { H2 } from '../Text/Headings'
+import { SmallText } from '../Text'
 
-const CommentWrapper = styled.div`
-  background: ${props => props.theme.palette.background};
-  border-radius: ${props => props.theme.spacing.space1};
-  padding: ${props => props.theme.spacing.space2};
+const CommentWrapper = styled(TileWrapper)`
+  align-items: center;
+  padding: ${props => props.theme.spacing.space4};
   margin-bottom: ${props => props.theme.spacing.space2};
 `
 
-const CommentAuthor = styled.div`
-  display: flex;
-  align-items: center;
+const CommentBody = styled.div`
+  
 `
 
 const Comment = ({ comment }) => {
   return (
     <CommentWrapper>
-      {comment.author &&
-        <CommentAuthor>
-          <Avatar src={comment.author.image} size={40} />
-          <H2>{comment.author.firstName} said</H2>
-        </CommentAuthor>
-      }
-      {comment.body}
+      <Avatar src={comment.author.image} size={40} />
+      <CommentBody>
+        <SmallText>{comment.author.firstName}</SmallText>
+        {comment.body}
+      </CommentBody>
     </CommentWrapper>
   )
 }
 
-export default Comment;
+export default Comment

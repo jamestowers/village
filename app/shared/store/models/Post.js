@@ -1,6 +1,29 @@
 import { Model, attr, fk } from 'redux-orm'
 
-// import { hydrateRelations } from '../hydrater'
+export const serializePost = (payload) => {
+  const { id, authorId, ...attributes } = payload
+  const model = {
+    data: {
+      type: 'posts',
+      attributes: {
+        ...attributes
+      },
+      relationships: {
+        author: {
+          data: {
+            type: 'users',
+            id: String(authorId)
+          }
+        }
+      }
+    }
+  }
+  if (id) {
+    model.data.id = id
+  }
+
+  return model
+}
 
 const defaultAttributes = {
   title: 'New Post',
@@ -12,8 +35,8 @@ const defaultAttributes = {
 };
 
 class Post extends Model {
-  toString() {
-    return `Post: ${this.title}`
+  static get modelName() {
+    return 'Post'
   }
 
   static get fields() {
@@ -29,33 +52,22 @@ class Post extends Model {
     }
   }
 
-  /* static hydrate(entities) {
-    entities.map(entity => {
-      const fields = entity.attributes
-      const postModel = this.upsert(fields)
-
-      if (entity.relationships) {
-        hydrateRelations(postModel, entity.relationships)
-      }
-
-      return postModel
-    })
-  } */
-
   static generate(newAttributes = {}) {
     const combinedAttributes = {
       ...defaultAttributes,
       ...newAttributes,
-    };
+    }
 
-    return this.create(combinedAttributes);
+    return this.create(combinedAttributes)
+  }
+
+  toString() {
+    return `Post: ${this.title}`
   }
 
   toJSON() {
-    return { ...this.ref };
+    return serializePost(this.ref)
   }
 }
-
-Post.modelName = 'Post'
 
 export default Post

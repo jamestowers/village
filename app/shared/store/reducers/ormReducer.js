@@ -1,7 +1,13 @@
 import orm from '../orm'
 
 import handleJsonAPIResponse from '../hydrater'
-import { FETCH_POSTS, FETCH_POST, FETCH_COMMENTS, ADD_COMMENT } from '../actionTypes'
+import {
+  FETCH_POSTS,
+  FETCH_POST,
+  FETCH_COMMENTS,
+  ADD_COMMENT,
+  PERSIST_COMMENT
+} from '../actionTypes'
 
 const ormReducer = (dbState, action) => {
   const session = orm.session(dbState)
@@ -11,6 +17,7 @@ const ormReducer = (dbState, action) => {
     case `${FETCH_POSTS}_FULFILLED`:
     case `${FETCH_COMMENTS}_FULFILLED`:
     case `${FETCH_POST}_FULFILLED`:
+    case `${PERSIST_COMMENT}_FULFILLED`:
       handleJsonAPIResponse(session, action.payload.data)
       break
 
@@ -42,9 +49,6 @@ const ormReducer = (dbState, action) => {
       Post.withId(action.payload.bookId).authors.remove(action.payload.authorId)
       break
 
-    case 'ASSIGN_PUBLISHER':
-      Post.withId(action.payload.bookId).publisher = action.payload.publisherId
-      break
     default:
       return session.state
 

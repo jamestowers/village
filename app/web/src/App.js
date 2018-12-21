@@ -14,17 +14,9 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     font-family: ${props => props.theme.type.fonts.body};
-    font-size: 1.6rem;
+    font-size: ${props => props.theme.type.sizes.default};
     color: ${props => props.theme.palette.textBody};
-    line-height: 1.3;
-  }
-  input[type=text],
-  input[type=password]
-  input[type=tel],
-  textarea{
-    border: 1px solid ${props => props.theme.palette.formFieldBorder};
-    padding: ${props => props.theme.spacing.space2};
-    width: 100%;
+    line-height: 1.58;
   }
 `
 class App extends Component {

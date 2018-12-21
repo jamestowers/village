@@ -6,12 +6,10 @@ const colors = {
   shade4: '#777777',
   shade5: '#212121',
   shade6: '#D3D0CB',
-  shade7: '#F2EEE8',
-  shade8: '#EFF1F3',
+  shade7: '#E8E8E8',
+  shade8: '#FAFAFA',
 
-  blueDark: 'rgba(46, 82, 102, 1)',
-  blueMedium: 'rgba(110, 136, 152, 1)',
-  blueLight: 'rgba(159, 177, 188, 1)',
+  blue: '#7ce2cd',
   grey: 'rgba(211, 208, 203, 1)',
   yellow: 'rgba(226, 192, 68, 1)'
 }
@@ -20,9 +18,11 @@ export const palette = {
   background: colors.white,
   backgroundAlt: colors.shade8,
   formFieldBorder: colors.shade6,
-  accent: colors.yellow,
+  accent: colors.blue,
+  primary: colors.blue,
+  secondary: colors.yellow,
   textHeading: colors.shade1,
-  textBody: colors.shade3,
+  textBody: colors.shade1,
   textLight: colors.shade4
 }
 
