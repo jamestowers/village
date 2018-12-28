@@ -11,6 +11,15 @@ const config = {
   // )
 }
 
-const instance = axios.create(config)
+const api = axios.create(config)
 
-export default instance
+export const fetchPosts = payload =>
+  api.get('/posts?include=author,comments&fields[posts]=title,image,publishedAt,author&fields[users]=firstName,lastName,image')
+
+export const fetchPost = id =>
+  api.get(`/posts/${id}?include=author`)
+
+export const persistPost = payload =>
+  api.patch(`/posts/${payload.data.id}`, payload)
+
+export default api 

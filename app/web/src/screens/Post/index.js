@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { fetchPost } from '../../../../shared/store/actions/postsActions'
+import { fetchPost } from '../../../../shared/store/request'
 import { postSelector } from '../../../../shared/store/selectors'
 
 import Post from './Post'

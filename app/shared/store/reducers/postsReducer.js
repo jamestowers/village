@@ -1,6 +1,3 @@
-// import { FETCH_POSTS, FETCH_POST } from '../actionTypes'
-
-
 const INITIAL_STATE = {
   loading: false,
   items: {}

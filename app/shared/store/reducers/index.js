@@ -3,7 +3,7 @@ import { combineReducers } from 'redux'
 import orm from '../orm'
 import handleJsonAPIResponse from '../hydrater'
 // Actions
-import { postActions as POST_ACTIONS } from '../actionTypes'
+import { postActions as POST_ACTIONS } from '../actions/postsActions'
 
 // Reducer functions
 import postsReducer from '../reducers/postsReducer'
@@ -27,9 +27,15 @@ function ormReducer(state = orm.getEmptyState(), action) {
   // pass the state, action and session to the actual reducers
   switch (true) {
 
-    case action.type.endsWith('_FULFILLED'):
+    /**
+     * Handle ALL responses from sucessful API calls
+     * For noe we assume any action ending in SUCCEEDED is a succesful
+     * reposne from the server and we hydrat the rom state with thr returned data
+     * JSON:API allows us to use a blanket function to hydrate all models
+     */
+    case action.type.endsWith('_SUCCEEDED'):
       session = orm.session(state)
-      handleJsonAPIResponse(session, action.payload.data)
+      handleJsonAPIResponse(session, action.payload)
       break
 
     // POSTS

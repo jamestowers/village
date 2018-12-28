@@ -8,14 +8,14 @@ export const serializePost = (payload) => {
       attributes: {
         ...attributes
       },
-      relationships: {
+      /* relationships: {
         author: {
           data: {
             type: 'users',
             id: String(authorId)
           }
         }
-      }
+      } */
     }
   }
   if (id) {
